@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'git@github.com:vitaliiklim/mineral-price-server.git'
+                git branch: 'main', url: 'git@github.com:vitaliiklim/mineral-price-server.git'
             }
         }
 
