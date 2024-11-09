@@ -5,7 +5,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/your-username/mineral-price-server.git'
+                // Заміна на ваш репозиторій
+                git 'git@github.com:vitaliiklim/mineral-price-server.git'
             }
         }
 
@@ -34,3 +35,4 @@ pipeline {
         }
     }
 }
+
