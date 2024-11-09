@@ -6,7 +6,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Заміна на ваш репозиторій
-                git 'git@github.com:vitaliiklim/mineral-price-server.git'
+                git branch: 'main', url: 'git@github.com:vitaliiklim/mineral-price-server.git'
             }
         }
 
