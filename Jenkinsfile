@@ -1,38 +1,29 @@
-// Jenkinsfile
 pipeline {
     agent any
-
     stages {
         stage('Checkout') {
             steps {
-                // Заміна на ваш репозиторій
-                git branch: 'main', url: 'git@github.com:vitaliiklim/mineral-price-server.git'
+                git 'git@github.com:vitaliiklim/mineral-price-server.git'
             }
         }
-
         stage('Install Dependencies') {
             steps {
-                sh 'pip install -r requirements.txt'
+                // Створення віртуального середовища та встановлення залежностей
+                sh 'python3 -m venv venv'
+                sh '. venv/bin/activate && pip install -r requirements.txt'
             }
         }
-
         stage('Run Tests') {
             steps {
-                sh 'pytest --disable-warnings'
+                // Запуск тестів у віртуальному середовищі
+                sh '. venv/bin/activate && python -m unittest discover'
             }
         }
     }
-
     post {
         always {
-            archiveArtifacts artifacts: '**/test-results/*.xml', allowEmptyArchive: true
-        }
-        success {
-            echo 'All tests passed!'
-        }
-        failure {
+            archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true
             echo 'Some tests failed.'
         }
     }
 }
-
