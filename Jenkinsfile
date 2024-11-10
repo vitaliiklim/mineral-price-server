@@ -17,14 +17,8 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                // Додаємо кореневий шлях проєкту до PYTHONPATH
-                sh 'export PYTHONPATH=$PYTHONPATH:$(pwd)'
-
-                // Перевіряємо наявність файлів у папці tests
-                sh 'ls tests'
-                
-                // Запускаємо тести
-                sh '. venv/bin/activate && pytest --disable-warnings tests/'
+                // Додаємо кореневий шлях проєкту до PYTHONPATH і запускаємо тести
+                sh 'export PYTHONPATH=$(pwd):$PYTHONPATH && . venv/bin/activate && pytest --disable-warnings tests/'
             }
         }
     }
@@ -41,3 +35,5 @@ pipeline {
         }
     }
 }
+
+
