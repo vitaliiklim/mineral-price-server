@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'git@github.com:vitaliiklim/mineral-price-server.git'
+                git 'git@github.com:vitaliiklim/mineral-price-server.git'
             }
         }
 
@@ -17,10 +17,13 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                // Перевірка вмісту папки з тестами
+                // Додаємо кореневий шлях проєкту до PYTHONPATH
+                sh 'export PYTHONPATH=$PYTHONPATH:$(pwd)'
+
+                // Перевіряємо наявність файлів у папці tests
                 sh 'ls tests'
                 
-                // Запуск тестів за допомогою pytest
+                // Запускаємо тести
                 sh '. venv/bin/activate && pytest --disable-warnings tests/'
             }
         }
